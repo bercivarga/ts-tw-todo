@@ -30,7 +30,7 @@ export default function TodoList() {
 						>
 							<p className="leading-normal">{t.text}</p>
 							<button
-								className="text-white text-sm bg-blue-600 px-5 py-3 rounded-sm uppercase tracking-wider font-semibold shadow-sm"
+								className="text-white text-sm bg-red-500 px-5 py-3 rounded-sm uppercase tracking-wider font-semibold shadow-sm"
 								onClick={(event: React.MouseEvent<HTMLElement>) => handleDelete(t.id)}
 							>
 								Delete
@@ -46,12 +46,12 @@ export default function TodoList() {
 					onSubmit={(e) => handleAdd(e)}
 				>
 					<input
-						className="pl-2 h-full text-lg outline-none"
+						className="pl-2 h-full text-base outline-none"
 						value={newTodo}
 						onChange={(e) => setNewTodo(e.target.value)}
 					/>
 					<button
-						className="outline-none px-3 py-2 bg-red-500 rounded-md text-white uppercase tracking-wider font-semibold"
+						className="outline-none px-3 py-2 bg-blue-600 rounded-sm text-white uppercase tracking-wider font-semibold"
 						type="submit"
 					>
 						Add
