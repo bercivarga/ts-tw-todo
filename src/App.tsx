@@ -1,18 +1,15 @@
 import React from 'react';
-import './App.css';
 
 import TodoProvider from './store';
 import TodoList from './TodoList';
 
 function App() {
 	return (
-		<div className="App">
-			<TodoProvider>
-				<div className="TodoContainer">
-					<TodoList />
-				</div>
-			</TodoProvider>
-		</div>
+		<TodoProvider>
+			<div className="flex items-center justify-center h-screen">
+				<TodoList />
+			</div>
+		</TodoProvider>
 	);
 }
 
