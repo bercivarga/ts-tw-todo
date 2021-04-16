@@ -21,7 +21,8 @@ export default function TodoList() {
 	};
 
 	return (
-		<div className="flex flex-col items-center p-10 shadow-md md:w-2/4 bg-gray-200 rounded-md">
+		<div className="flex flex-col items-center p-10 shadow-md md:w-1/3 bg-gray-200 rounded-md">
+			<h1 className="text-gray-900 font-bold text-4xl mb-6">Simple Todo List</h1>
 			<div className="flex flex-col w-full">
 				{todos.map((t, i) => {
 					return (
