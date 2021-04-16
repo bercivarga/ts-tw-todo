@@ -34,13 +34,10 @@ export const useDispatchContext = () => {
 	return dispatch;
 };
 
-// IDs of items get set to -Infinity and probably makes the filter method go crazy
-// Fix it
-
 function todosReducer(state: TodoState, action: Action): TodoState {
 	switch (action.type) {
 		case 'ADD':
-			const newId = Math.max(...state.map((todo) => todo.id)) + 1;
+			const newId = Math.round(Math.random() * 100000);
 			return [ ...state, { id: newId, text: action.text, done: false } ];
 		case 'DELETE':
 			return state.filter((todo) => todo.id !== action.id);
