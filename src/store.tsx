@@ -63,7 +63,6 @@ export default function TodoProvider({ children }: { children: ReactNode }) {
 		() => {
 			const data = JSON.stringify(todos);
 			window.localStorage.setItem('todo_list', data);
-			console.log(todos);
 		},
 		[ todos ]
 	);
