@@ -3,12 +3,12 @@ import { createContext, ReactNode, useContext, useReducer, Dispatch, useEffect }
 let initialState = [
 	{
 		id: 0,
-		text: 'Hello',
+		text: 'Hey there!',
 		done: false
 	},
 	{
 		id: 1,
-		text: 'Yo',
+		text: 'Try adding your first todo below.',
 		done: false
 	}
 ];
