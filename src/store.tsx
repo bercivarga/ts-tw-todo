@@ -1,6 +1,6 @@
-import { createContext, ReactNode, useContext, useReducer, Dispatch } from 'react';
+import { createContext, ReactNode, useContext, useReducer, Dispatch, useEffect } from 'react';
 
-const initialState = [
+let initialState = [
 	{
 		id: 0,
 		text: 'Hello',
@@ -13,7 +13,10 @@ const initialState = [
 	}
 ];
 
-type Action = { type: 'ADD'; text: string } | { type: 'DELETE'; id: number };
+type Action =
+	| { type: 'ADD'; text: string }
+	| { type: 'DELETE'; id: number }
+	| { type: 'UPDATE'; storedState: TodoState };
 
 type TodosDispatch = Dispatch<Action>;
 
@@ -31,6 +34,9 @@ export const useDispatchContext = () => {
 	return dispatch;
 };
 
+// IDs of items get set to -Infinity and probably makes the filter method go crazy
+// Fix it
+
 function todosReducer(state: TodoState, action: Action): TodoState {
 	switch (action.type) {
 		case 'ADD':
@@ -38,6 +44,8 @@ function todosReducer(state: TodoState, action: Action): TodoState {
 			return [ ...state, { id: newId, text: action.text, done: false } ];
 		case 'DELETE':
 			return state.filter((todo) => todo.id !== action.id);
+		case 'UPDATE':
+			return [ ...action.storedState ];
 		default:
 			throw new Error('Action not handled');
 	}
@@ -45,6 +53,23 @@ function todosReducer(state: TodoState, action: Action): TodoState {
 
 export default function TodoProvider({ children }: { children: ReactNode }) {
 	const [ todos, dispatch ] = useReducer(todosReducer, initialState);
+
+	useEffect(() => {
+		const stateFromStorage = window.localStorage.getItem('todo_list');
+		initialState = stateFromStorage && JSON.parse(stateFromStorage);
+		if (initialState) {
+			dispatch({ type: 'UPDATE', storedState: initialState });
+		}
+	}, []);
+
+	useEffect(
+		() => {
+			const data = JSON.stringify(todos);
+			window.localStorage.setItem('todo_list', data);
+			console.log(todos);
+		},
+		[ todos ]
+	);
 
 	return (
 		<TodoContext.Provider value={todos}>
